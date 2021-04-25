@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: sentiment-collector
+  name: sentiment-collector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: sentiment-collector
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: sentiment-collector
+    spec:
+      containers:
+      - image: chiupc/sentiments-collector:1.0.3
+        imagePullPolicy: ""
+        name: sentiments-collector
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+          - mountPath: "/data"
+            name: data-pv1
+        envFrom:                ##All key-value pairs of the special-config ConfigMap are referenced.
+        - configMapRef:
+            name: sentiment-collector-config
+      volumes:
+        - name: data-pv1
+          persistentVolumeClaim:
+            claimName: data-pv1
+      restartPolicy: Always
+      #serviceAccountName: ""
+status: {}

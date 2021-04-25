@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    io.kompose.service: sentiment-analytic-py
+  name: sentiment-analytic-py
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: sentiment-analytic-py
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        io.kompose.service: sentiment-analytic-py
+    spec:
+      containers:
+      - image: chiupc/sentimentanalytic-py:latest
+        imagePullPolicy: ""
+        name: sentiment-analytic-py
+        ports:
+        - containerPort: 50051
+        volumeMounts:
+          - mountPath: "/data"
+            name: data-pv1
+        envFrom:                ##All key-value pairs of the special-config ConfigMap are referenced.
+        - configMapRef:
+            name: sentiment-analytic-py-config
+      volumes:
+        - name: data-pv1
+          persistentVolumeClaim:
+            claimName: data-pv1
+      restartPolicy: Always
+      #serviceAccountName: ""

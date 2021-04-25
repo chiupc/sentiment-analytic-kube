@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: sentiment-analytic-py
+  name: sentiment-analytic-py
+spec:
+  ports:
+  - name: "50051"
+    port: 50051
+    targetPort: 50051
+  #type: LoadBalancer
+  type: NodePort
+  selector:
+    io.kompose.service: sentiment-analytic-py

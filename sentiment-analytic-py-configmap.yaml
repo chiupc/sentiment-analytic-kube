@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sentiment-analytic-py-config
+  namespace: default
+data:
+    DATA_PATH: "/data"

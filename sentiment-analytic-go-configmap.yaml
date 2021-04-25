@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sentiment-analytic-go-config
+  namespace: default
+data:
+    GOOGLE_API_TIMEOUT: "60"
+    GOOGLE_CREDENTIALS_JSON: "SharkDetector-97187f6c7dfe.json"
+    DATA_PATH: "/data"
+    ENVIRONMENT: "PROD"
+    PY_GRPC_SENTIMENTANALYTIC_PORT: "50051"
+    PY_GRPC_SENTIMENTANALYTIC_PROD_VIP: "sentiment-analytic-py"
+    GRPC_SENTIMENTANALYTIC_PROD_VIP: "sentiment-analytic-go"
+    SENTIMENT_ENGINE: "VADER"
